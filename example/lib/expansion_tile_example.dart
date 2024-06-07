@@ -1,6 +1,7 @@
 import 'package:drag_and_drop_lists/drag_and_drop_lists.dart';
-import 'package:example/navigation_drawer.dart';
 import 'package:flutter/material.dart';
+
+import 'custom_navigation_drawer.dart';
 
 class ExpansionTileExample extends StatefulWidget {
   const ExpansionTileExample({Key? key}) : super(key: key);
@@ -36,7 +37,7 @@ class _ListTileExample extends State<ExpansionTileExample> {
       appBar: AppBar(
         title: const Text('Expansion Tiles'),
       ),
-      drawer: const NavigationDrawer(),
+      drawer: const CustomNavigationDrawer(),
       body: DragAndDropLists(
         children: List.generate(_lists.length, (index) => _buildList(index)),
         onItemReorder: _onItemReorder,
