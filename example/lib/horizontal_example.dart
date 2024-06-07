@@ -1,6 +1,7 @@
 import 'package:drag_and_drop_lists/drag_and_drop_lists.dart';
-import 'package:example/navigation_drawer.dart';
 import 'package:flutter/material.dart';
+
+import 'custom_navigation_drawer.dart';
 
 class HorizontalExample extends StatefulWidget {
   const HorizontalExample({Key? key}) : super(key: key);
@@ -36,7 +37,7 @@ class _HorizontalExample extends State<HorizontalExample> {
       appBar: AppBar(
         title: const Text('Horizontal'),
       ),
-      drawer: const NavigationDrawer(),
+      drawer: const CustomNavigationDrawer(),
       body: DragAndDropLists(
         children: List.generate(_lists.length, (index) => _buildList(index)),
         onItemReorder: _onItemReorder,
@@ -75,7 +76,7 @@ class _HorizontalExample extends State<HorizontalExample> {
               padding: const EdgeInsets.all(10),
               child: Text(
                 'Header ${innerList.name}',
-                style: Theme.of(context).primaryTextTheme.headline6,
+                style: Theme.of(context).primaryTextTheme.titleLarge,
               ),
             ),
           ),
@@ -93,7 +94,7 @@ class _HorizontalExample extends State<HorizontalExample> {
               padding: const EdgeInsets.all(10),
               child: Text(
                 'Footer ${innerList.name}',
-                style: Theme.of(context).primaryTextTheme.headline6,
+                style: Theme.of(context).primaryTextTheme.titleLarge,
               ),
             ),
           ),
