@@ -27,23 +27,26 @@ class _DragAndDropItemTarget extends State<DragAndDropItemTarget>
 
   @override
   Widget build(BuildContext context) {
+    final ghost = _hoveredDraggable != null
+        ? Opacity(
+            opacity: widget.parameters.itemGhostOpacity,
+            child: widget.parameters.itemGhost ?? _hoveredDraggable!.child,
+          )
+        : Container();
     return Stack(
       children: <Widget>[
         Column(
           crossAxisAlignment: widget.parameters.verticalAlignment,
           children: <Widget>[
-            AnimatedSize(
-              duration: Duration(
-                  milliseconds: widget.parameters.itemSizeAnimationDuration),
-              alignment: Alignment.bottomCenter,
-              child: _hoveredDraggable != null
-                  ? Opacity(
-                      opacity: widget.parameters.itemGhostOpacity,
-                      child: widget.parameters.itemGhost ??
-                          _hoveredDraggable!.child,
-                    )
-                  : Container(),
-            ),
+            widget.parameters.itemSizeAnimationDuration > 0
+                ? AnimatedSize(
+                    duration: Duration(
+                        milliseconds:
+                            widget.parameters.itemSizeAnimationDuration),
+                    alignment: Alignment.bottomCenter,
+                    child: ghost,
+                  )
+                : ghost,
             widget.child,
           ],
         ),
