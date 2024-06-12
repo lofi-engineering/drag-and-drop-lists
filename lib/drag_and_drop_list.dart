@@ -155,26 +155,24 @@ class DragAndDropList implements DragAndDropListInterface {
         Expanded(
           child: SingleChildScrollView(
             physics: NeverScrollableScrollPhysics(),
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              children: <Widget>[
-                contentsWhenEmpty ??
-                    Text(
-                      'Empty list',
-                      style: TextStyle(
-                        fontStyle: FontStyle.italic,
+            child: DragAndDropItemTarget(
+              parent: this,
+              parameters: parameters,
+              onReorderOrAdd: parameters.onItemDropOnLastTarget!,
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                children: <Widget>[
+                  contentsWhenEmpty ??
+                      Text(
+                        'Empty list',
+                        style: TextStyle(fontStyle: FontStyle.italic),
                       ),
-                    ),
-                DragAndDropItemTarget(
-                  parent: this,
-                  parameters: parameters,
-                  onReorderOrAdd: parameters.onItemDropOnLastTarget!,
-                  child: lastTarget ??
+                  lastTarget ??
                       Container(
                         height: parameters.lastItemTargetHeight,
                       ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
