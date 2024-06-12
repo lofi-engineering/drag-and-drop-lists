@@ -181,24 +181,27 @@ class _DragAndDropItemWrapper extends State<DragAndDropItemWrapper>
         child: _hoveredDraggable != null ? Container() : widget.child.child,
       );
     }
+    final ghost = _hoveredDraggable != null
+        ? Opacity(
+            opacity: widget.parameters!.itemGhostOpacity,
+            child: widget.parameters!.itemGhost ?? _hoveredDraggable!.child,
+          )
+        : Container();
     return Stack(
       children: <Widget>[
         Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: widget.parameters!.verticalAlignment,
           children: <Widget>[
-            AnimatedSize(
-              duration: Duration(
-                  milliseconds: widget.parameters!.itemSizeAnimationDuration),
-              alignment: Alignment.topLeft,
-              child: _hoveredDraggable != null
-                  ? Opacity(
-                      opacity: widget.parameters!.itemGhostOpacity,
-                      child: widget.parameters!.itemGhost ??
-                          _hoveredDraggable!.child,
-                    )
-                  : Container(),
-            ),
+            widget.parameters!.itemSizeAnimationDuration > 0
+                ? AnimatedSize(
+                    duration: Duration(
+                        milliseconds:
+                            widget.parameters!.itemSizeAnimationDuration),
+                    alignment: Alignment.topLeft,
+                    child: ghost,
+                  )
+                : ghost,
             Listener(
               child: draggable,
               onPointerMove: _onPointerMove,
